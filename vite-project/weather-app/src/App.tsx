@@ -1,17 +1,15 @@
 import { useState } from "react";
 import "./App.css";
+import { SearchResultItem } from "./search/SearchResultItem";
+import type { SearchResultItemType } from "./models/SearchResultItemType";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_TEST_KEY;
 
-interface City {
-  city: string;
-  name: string;
-  country: string;
-}
-
 function App() {
   const [query, setQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<City[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResultItemType[]>(
+    []
+  );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -29,12 +27,11 @@ function App() {
     )
       .then((r) => r.json())
       .then((cities) => {
-        console.log("reader ==>", cities);
         setSearchResults(
-          cities.map(({ city, name, country }: City) => {
+          cities.map(({ city, state, country }: SearchResultItemType) => {
             return {
               city: city,
-              name: name,
+              state: state,
               country: country,
             };
           })
@@ -60,12 +57,8 @@ function App() {
         <h1 style={{ margin: 0 }}>{searchResults.length}</h1>
         {searchResults.length > 0 && (
           <ul data-testid="search-results" className="search-results">
-            {searchResults.map((item, index) => (
-              <li className="search-result" key={`search-result-${index}`}>
-                <span className="city">{item.city}</span>
-                <span className="name">{item.name}</span>
-                <span className="country">{item.country}</span>
-              </li>
+            {searchResults.map((city, index) => (
+              <SearchResultItem key={index} item={city} />
             ))}
           </ul>
         )}
