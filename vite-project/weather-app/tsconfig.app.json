@@ -21,7 +21,10 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* 타입 정의 전역 적용 */
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src"]
 }
