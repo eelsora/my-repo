@@ -19,4 +19,6 @@ it("shows a city name, the state, and the country", () => {
   );
 
   expect(screen.getByText("Melbourne")).toBeInTheDocument();
+  expect(screen.getByText("Australia")).toBeInTheDocument();
+  expect(screen.getByText("Victoria")).toBeInTheDocument();
 });
