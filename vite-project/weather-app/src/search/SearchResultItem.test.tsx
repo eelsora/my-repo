@@ -1,5 +1,5 @@
-import { it } from "vitest";
-import { render } from "@testing-library/react";
+import { expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
 import { SearchResultItemType } from "../models/SearchResultItemType";
 import { SearchResultItem } from "./SearchResultItem";
 
@@ -17,4 +17,6 @@ it("shows a city name, the state, and the country", () => {
       }
     />
   );
+
+  expect(screen.getByText("Melbourne")).toBeInTheDocument();
 });
